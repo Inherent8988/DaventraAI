@@ -13,360 +13,129 @@
 
 body {
   margin: 0;
-  background: #0b0d12;
-  color: #f1f3f8;
+  min-height: 100vh;
+  background: #0b0d14;
+  color: #fff;
   font-family: Arial, sans-serif;
-  height: 100dvh;
-}
-
-button, input {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-  border: none;
-}
-
-#loginScreen {
-  height: 100%;
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
 }
 
-.loginBox {
+.container {
   width: 100%;
-  max-width: 390px;
+  max-width: 420px;
+  background: #151824;
+  border: 1px solid #292e40;
+  border-radius: 20px;
+  padding: 32px 24px;
   text-align: center;
 }
 
 .logo {
-  font-size: 34px;
-  font-weight: bold;
-  letter-spacing: 1px;
+  font-size: 32px;
+  font-weight: 800;
+  color: #a78bfa;
+  margin-bottom: 12px;
 }
 
-.logo span, .brand span {
-  color: #8b7cff;
+.description {
+  color: #a4a9bb;
+  line-height: 1.5;
+  margin-bottom: 28px;
 }
 
-.loginBox p {
-  color: #aeb4c2;
-  line-height: 1.6;
-}
-
-.googleBtn {
+button {
   width: 100%;
-  padding: 15px;
-  margin-top: 20px;
-  background: white;
-  color: #222;
+  border: 0;
   border-radius: 12px;
+  padding: 15px;
+  font-size: 15px;
   font-weight: bold;
-}
-
-#loginStatus {
-  font-size: 13px;
-}
-
-#app {
-  display: none;
-  height: 100%;
-}
-
-.layout {
-  display: flex;
-  height: 100%;
-}
-
-aside {
-  width: 270px;
-  min-width: 270px;
-  background: #11141c;
-  border-right: 1px solid #252a36;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.brand {
-  font-size: 21px;
-  font-weight: bold;
-  padding: 8px;
-}
-
-.newChat {
-  padding: 13px;
-  background: #7968f2;
-  color: white;
-  border-radius: 11px;
-}
-
-#chatList {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.chatItem {
-  padding: 13px;
-  border-radius: 9px;
-  color: #c5c9d3;
   cursor: pointer;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  margin-bottom: 5px;
 }
 
-.chatItem:hover,
-.chatItem.active {
-  background: #252a38;
-  color: white;
+#googleLogin {
+  background: #fff;
+  color: #222;
 }
 
-.profile {
-  border-top: 1px solid #292e3b;
-  padding-top: 13px;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-
-#avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  object-fit: cover;
-  background: #252a38;
-}
-
-#userName {
-  flex: 1;
-  font-size: 13px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+#googleLogin:disabled {
+  opacity: .5;
+  cursor: wait;
 }
 
 #logout {
-  padding: 9px;
-  border-radius: 8px;
+  background: #292e40;
   color: white;
-  background: #252a38;
-}
-
-main {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-header {
-  padding: 18px 20px;
-  border-bottom: 1px solid #252a36;
-  font-weight: bold;
-}
-
-#chat {
-  flex: 1;
-  overflow-y: auto;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.welcome {
-  margin: auto;
-  text-align: center;
-  color: #aeb4c2;
-}
-
-.welcome h1 {
-  font-size: 32px;
-  color: white;
-}
-
-.message {
-  max-width: min(760px, 88%);
-  padding: 13px 16px;
-  border-radius: 15px;
-  line-height: 1.55;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
-
-.user {
-  align-self: flex-end;
-  background: #6655d9;
-}
-
-.ai {
-  align-self: flex-start;
-  background: #1b202b;
-}
-
-form {
-  display: flex;
-  gap: 10px;
-  padding: 16px;
-  border-top: 1px solid #252a36;
-}
-
-input {
-  flex: 1;
-  min-width: 0;
-  padding: 15px;
-  border: 1px solid #303747;
-  border-radius: 13px;
-  outline: none;
-  background: #171b24;
-  color: white;
-}
-
-#send {
-  padding: 0 23px;
-  background: #7968f2;
-  color: white;
-  border-radius: 12px;
-}
-
-#send:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+  margin-top: 20px;
 }
 
 #status {
-  text-align: center;
-  color: #9da4b5;
-  font-size: 12px;
-  padding: 8px;
+  color: #b8a5ff;
+  font-size: 13px;
+  margin-top: 20px;
+  overflow-wrap: anywhere;
 }
 
-@media(max-width:650px) {
-  aside {
-    width: 76px;
-    min-width: 76px;
-    padding: 9px;
-  }
-
-  .brand {
-    font-size: 0;
-    text-align: center;
-  }
-
-  .brand:before {
-    content: "D";
-    font-size: 23px;
-  }
-
-  .newChat {
-    font-size: 0;
-    padding: 13px 5px;
-  }
-
-  .newChat:after {
-    content: "+";
-    font-size: 22px;
-  }
-
-  .chatItem {
-    font-size: 0;
-    text-align: center;
-    padding: 13px 5px;
-  }
-
-  .chatItem:before {
-    content: "▤";
-    font-size: 19px;
-  }
-
-  .profile {
-    flex-direction: column;
-  }
-
-  #userName {
-    display: none;
-  }
-
-  #logout {
-    font-size: 10px;
-    padding: 7px 5px;
-  }
-
-  #chat {
-    padding: 15px;
-  }
+#account {
+  display: none;
 }
+
+.avatar {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  margin: 12px auto;
+  object-fit: cover;
+  background: #292e40;
+}
+
+.email {
+  color: #b8a5ff;
+  overflow-wrap: anywhere;
+  margin-top: 10px;
+}
+
 </style>
 </head>
 
 <body>
 
-<section id="loginScreen">
-  <div class="loginBox">
-    <div class="logo">DAVENTRA <span>AI</span></div>
-    <p>Твой интеллектуальный помощник.</p>
+<div class="container">
 
-    <button class="googleBtn" id="googleLogin">
-      🌐 Продолжить с Google
+  <div class="logo">DAVENTRA AI</div>
+
+  <div id="login">
+    <h2>Добро пожаловать!</h2>
+
+    <p class="description">
+      Войдите или зарегистрируйтесь,
+      используя свой Google-аккаунт.
+    </p>
+
+    <button id="googleLogin">
+      Продолжить с Google
     </button>
-
-    <p id="loginStatus"></p>
   </div>
-</section>
 
-<div id="app">
-  <div class="layout">
+  <div id="account">
+    <h2>Вы вошли в аккаунт!</h2>
 
-    <aside>
-      <div class="brand">
-        DAVENTRA <span>AI</span>
-      </div>
+    <img id="avatar" class="avatar" alt="Аватар">
 
-      <button class="newChat" id="newChat">
-        ＋ Новый чат
-      </button>
+    <h3 id="userName"></h3>
+    <div id="userEmail" class="email"></div>
 
-      <div id="chatList"></div>
-
-      <div class="profile">
-        <img id="avatar" alt="Avatar">
-        <span id="userName"></span>
-        <button id="logout">Выйти</button>
-      </div>
-    </aside>
-
-    <main>
-      <header>DAVENTRA AI</header>
-
-      <div id="chat">
-        <div class="welcome" id="welcome">
-          <h1>DAVENTRA AI</h1>
-          <p>О чём поговорим сегодня?</p>
-        </div>
-      </div>
-
-      <div id="status">Готов к работе</div>
-
-      <form id="form">
-        <input
-          id="prompt"
-          placeholder="Спроси что-нибудь..."
-          autocomplete="off"
-        >
-        <button id="send" type="submit">➤</button>
-      </form>
-    </main>
-
+    <button id="logout">Выйти из аккаунта</button>
   </div>
+
+  <div id="status">Подключение к Firebase...</div>
+
 </div>
 
 <script type="module">
-
-// FIREBASE SDK
 
 import { initializeApp } from
 "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
@@ -374,28 +143,13 @@ import { initializeApp } from
 import {
   getAuth,
   GoogleAuthProvider,
-  signInWithRedirect,
-  getRedirectResult,
+  signInWithPopup,
   onAuthStateChanged,
+  setPersistence,
+  browserLocalPersistence,
   signOut
 } from
 "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-
-import {
-  getFirestore,
-  collection,
-  doc,
-  addDoc,
-  updateDoc,
-  serverTimestamp,
-  query,
-  orderBy,
-  onSnapshot
-} from
-"https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
-
-
-// ТВОЙ FIREBASE CONFIG
 
 const firebaseConfig = {
   apiKey: "AIzaSyCA8ONpSRkIsXotSYL_qJIxE-18VzqTcBQ",
@@ -406,367 +160,109 @@ const firebaseConfig = {
   appId: "1:978786636501:web:28a6899e612c9c07ec885c"
 };
 
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-// INITIALIZE FIREBASE
-
-const firebaseApp = initializeApp(firebaseConfig);
-
-const auth = getAuth(firebaseApp);
-const db = getFirestore(firebaseApp);
 const provider = new GoogleAuthProvider();
 
+provider.setCustomParameters({
+  prompt: "select_account"
+});
 
-// ELEMENTS
-
-const loginScreen = document.getElementById("loginScreen");
-const appScreen = document.getElementById("app");
-const loginStatus = document.getElementById("loginStatus");
-
-const chat = document.getElementById("chat");
-const chatList = document.getElementById("chatList");
-
-const input = document.getElementById("prompt");
-const sendButton = document.getElementById("send");
+const login = document.getElementById("login");
+const account = document.getElementById("account");
 const status = document.getElementById("status");
+const googleButton = document.getElementById("googleLogin");
 
+googleButton.addEventListener("click", async () => {
 
-// STATE
+  googleButton.disabled = true;
+  status.textContent = "Открываем Google...";
 
-let currentUser = null;
-let currentChatId = null;
-
-let stopChats = null;
-let stopMessages = null;
-
-
-// GOOGLE LOGIN
-
-document.getElementById("googleLogin").onclick = async () => {
   try {
-    loginStatus.textContent = "Открываем Google...";
 
-    await signInWithRedirect(auth, provider);
+    await setPersistence(
+      auth,
+      browserLocalPersistence
+    );
+
+    const result = await signInWithPopup(
+      auth,
+      provider
+    );
+
+    if (result.user) {
+      status.textContent = "Регистрация прошла успешно!";
+    }
 
   } catch (error) {
-    loginStatus.textContent = "Ошибка: " + error.message;
+
+    console.error(error);
+
+    status.textContent =
+      "Ошибка: " + error.code + " — " + error.message;
+
+  } finally {
+
+    googleButton.disabled = false;
+
   }
-};
 
-
-// REDIRECT RESULT
-
-try {
-  await getRedirectResult(auth);
-} catch (error) {
-  loginStatus.textContent =
-    "Ошибка входа: " + error.message;
-}
-
-
-// AUTH STATE
+});
 
 onAuthStateChanged(auth, user => {
 
-  currentUser = user;
-
   if (user) {
 
-    loginScreen.style.display = "none";
-    appScreen.style.display = "block";
+    login.style.display = "none";
+    account.style.display = "block";
 
     document.getElementById("userName").textContent =
-      user.displayName || user.email || "Пользователь";
+      user.displayName || "Пользователь";
 
-    document.getElementById("avatar").src =
-      user.photoURL || "";
+    document.getElementById("userEmail").textContent =
+      user.email || "";
 
-    loadChats();
+    const avatar = document.getElementById("avatar");
+
+    if (user.photoURL) {
+      avatar.src = user.photoURL;
+      avatar.style.display = "block";
+    } else {
+      avatar.style.display = "none";
+    }
+
+    status.textContent = "Аккаунт успешно подключён.";
 
   } else {
 
-    loginScreen.style.display = "grid";
-    appScreen.style.display = "none";
+    login.style.display = "block";
+    account.style.display = "none";
 
-    stopChats?.();
-    stopMessages?.();
+    status.textContent = "Войдите через Google.";
 
-    stopChats = null;
-    stopMessages = null;
-
-    currentChatId = null;
   }
+
+}, error => {
+
+  status.textContent =
+    "Ошибка проверки авторизации: " + error.message;
+
 });
 
-
-// USER CHATS COLLECTION
-
-function userChats() {
-  return collection(
-    db,
-    "users",
-    currentUser.uid,
-    "chats"
-  );
-}
-
-
-// LOAD CHAT LIST
-
-function loadChats() {
-
-  stopChats?.();
-
-  const q = query(
-    userChats(),
-    orderBy("updatedAt", "desc")
-  );
-
-  stopChats = onSnapshot(q, snapshot => {
-
-    chatList.innerHTML = "";
-
-    snapshot.forEach(item => {
-
-      const data = item.data();
-
-      const button = document.createElement("div");
-
-      button.className =
-        "chatItem" +
-        (item.id === currentChatId ? " active" : "");
-
-      button.textContent = data.title || "Новый чат";
-
-      button.onclick = () => openChat(item.id);
-
-      chatList.appendChild(button);
-    });
-
-  }, error => {
-
-    status.textContent =
-      "Ошибка загрузки чатов: " + error.message;
-
-  });
-}
-
-
-// OPEN CHAT
-
-function openChat(chatId) {
-
-  currentChatId = chatId;
-
-  stopMessages?.();
-
-  document.getElementById("welcome")?.remove();
-
-  chat.innerHTML = "";
-
-  const messagesRef = collection(
-    db,
-    "users",
-    currentUser.uid,
-    "chats",
-    chatId,
-    "messages"
-  );
-
-  const q = query(
-    messagesRef,
-    orderBy("createdAt", "asc")
-  );
-
-  stopMessages = onSnapshot(q, snapshot => {
-
-    chat.innerHTML = "";
-
-    snapshot.forEach(item => {
-
-      const data = item.data();
-
-      addMessage(data.text, data.role);
-
-    });
-
-    chat.scrollTop = chat.scrollHeight;
-
-  }, error => {
-
-    status.textContent =
-      "Ошибка загрузки сообщений: " + error.message;
-
-  });
-
-  loadChats();
-}
-
-
-// DISPLAY MESSAGE
-
-function addMessage(text, role) {
-
-  const element = document.createElement("div");
-
-  element.className = "message " + role;
-
-  element.textContent = text;
-
-  chat.appendChild(element);
-}
-
-
-// NEW CHAT
-
-document.getElementById("newChat").onclick = () => {
-
-  stopMessages?.();
-
-  stopMessages = null;
-
-  currentChatId = null;
-
-  chat.innerHTML = `
-    <div class="welcome" id="welcome">
-      <h1>DAVENTRA AI</h1>
-      <p>О чём поговорим сегодня?</p>
-    </div>
-  `;
-
-  loadChats();
-
-};
-
-
-// SEND MESSAGE
-
-document.getElementById("form").addEventListener(
-  "submit",
-  async event => {
-
-    event.preventDefault();
-
-    const text = input.value.trim();
-
-    if (!text || !currentUser) return;
-
-    input.value = "";
-
-    sendButton.disabled = true;
-
-    status.textContent = "Сохраняем сообщение...";
+document.getElementById("logout").addEventListener(
+  "click",
+  async () => {
 
     try {
-
-      // CREATE NEW CHAT IF NEEDED
-
-      if (!currentChatId) {
-
-        const newChat = await addDoc(userChats(), {
-
-          title: text.slice(0, 45),
-
-          createdAt: serverTimestamp(),
-
-          updatedAt: serverTimestamp()
-
-        });
-
-        currentChatId = newChat.id;
-
-        openChat(currentChatId);
-
-      }
-
-      // MESSAGES COLLECTION
-
-      const messagesRef = collection(
-        db,
-        "users",
-        currentUser.uid,
-        "chats",
-        currentChatId,
-        "messages"
-      );
-
-
-      // SAVE USER MESSAGE
-
-      await addDoc(messagesRef, {
-
-        text: text,
-
-        role: "user",
-
-        createdAt: serverTimestamp()
-
-      });
-
-
-      // TEMPORARY AI RESPONSE
-
-      await addDoc(messagesRef, {
-
-        text:
-          "DAVENTRA AI пока не подключён к настоящей AI-модели. Твоё сообщение сохранено!",
-
-        role: "ai",
-
-        createdAt: serverTimestamp()
-
-      });
-
-
-      // UPDATE CHAT DATE
-
-      await updateDoc(
-        doc(
-          db,
-          "users",
-          currentUser.uid,
-          "chats",
-          currentChatId
-        ),
-        {
-          updatedAt: serverTimestamp()
-        }
-      );
-
-      status.textContent = "Чат сохранён";
-
+      await signOut(auth);
+      status.textContent = "Вы вышли из аккаунта.";
     } catch (error) {
-
-      status.textContent =
-        "Ошибка: " + error.message;
-
-    } finally {
-
-      sendButton.disabled = false;
-
-      input.focus();
-
+      status.textContent = "Ошибка выхода: " + error.message;
     }
 
   }
 );
-
-
-// LOGOUT
-
-document.getElementById("logout").onclick = async () => {
-
-  try {
-
-    await signOut(auth);
-
-  } catch (error) {
-
-    status.textContent =
-      "Ошибка выхода: " + error.message;
-
-  }
-
-};
 
 </script>
 
