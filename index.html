@@ -16,222 +16,167 @@
   --border:#2b2935;
 }
 *{box-sizing:border-box}
-body{
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:Arial,sans-serif;height:100vh;overflow:hidden
-}
-button,input{font:inherit}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;height:100vh;overflow:hidden}
+button,input,textarea{font:inherit}
 button{cursor:pointer}
-#loginScreen{
-  height:100vh;display:flex;align-items:center;
-  justify-content:center;padding:20px
-}
-.login-card{
-  width:100%;max-width:390px;background:var(--panel);
-  border:1px solid var(--border);border-radius:22px;
-  padding:35px;text-align:center
-}
-.logo{
-  font-size:29px;font-weight:800;letter-spacing:1px;
-  margin-bottom:10px
-}
-.logo span{color:var(--accent)}
+button:disabled{opacity:.5;cursor:not-allowed}
+#loginScreen{height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.login-card{width:100%;max-width:390px;background:var(--panel);border:1px solid var(--border);border-radius:22px;padding:35px;text-align:center}
+.logo{font-size:29px;font-weight:800;letter-spacing:1px;margin-bottom:10px}
+.logo span,.brand span,.welcome h1 span{color:var(--accent)}
 .subtitle{color:var(--muted);font-size:14px;margin-bottom:28px}
-.google-btn{
-  width:100%;padding:14px;border:0;border-radius:12px;
-  background:white;color:#222;font-weight:700
-}
-#loginStatus{font-size:13px;color:var(--muted);margin-top:16px}
-#app{display:none;height:100vh}
-.sidebar{
-  width:270px;background:#15151b;border-right:1px solid var(--border);
-  display:flex;flex-direction:column;padding:16px
-}
+.google-btn{width:100%;padding:14px;border:0;border-radius:12px;background:white;color:#222;font-weight:700}
+#loginStatus{font-size:13px;color:var(--muted);margin-top:16px;overflow-wrap:anywhere}
+#app{display:none;height:100vh;width:100%}
+.sidebar{width:270px;min-width:270px;background:#15151b;border-right:1px solid var(--border);display:flex;flex-direction:column;padding:16px}
 .sidebar-top{display:flex;align-items:center;justify-content:space-between}
 .brand{font-size:20px;font-weight:800}
-.brand span{color:var(--accent)}
-.new-chat{
-  width:100%;margin:25px 0 18px;padding:13px;
-  background:var(--accent);border:0;border-radius:11px;
-  color:white;font-weight:700
-}
-.section-label{
-  color:var(--muted);font-size:12px;margin-bottom:10px
-}
+.new-chat{width:100%;margin:25px 0 18px;padding:13px;background:var(--accent);border:0;border-radius:11px;color:white;font-weight:700}
+.section-label{color:var(--muted);font-size:12px;margin-bottom:10px}
 #chatList{overflow-y:auto;flex:1}
-.chat-item{
-  padding:12px;border-radius:9px;margin-bottom:5px;
-  color:#ccc;background:transparent;cursor:pointer;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  font-size:14px
-}
+.chat-item{padding:12px;border-radius:9px;margin-bottom:5px;color:#ccc;background:transparent;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14px}
 .chat-item:hover,.chat-item.active{background:var(--panel2);color:white}
-.profile{
-  border-top:1px solid var(--border);padding-top:14px;
-  display:flex;align-items:center;gap:10px
-}
-.avatar{
-  width:37px;height:37px;border-radius:50%;
-  background:var(--accent);display:flex;
-  align-items:center;justify-content:center;font-weight:bold
-}
+.profile{border-top:1px solid var(--border);padding-top:14px;display:flex;align-items:center;gap:10px}
+.avatar{width:37px;height:37px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:bold;flex-shrink:0}
 .profile-info{flex:1;min-width:0}
-.profile-name{font-size:13px;overflow:hidden;text-overflow:ellipsis}
-.profile-email{font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis}
-.logout{
-  border:0;background:transparent;color:var(--muted);
-  padding:8px;font-size:18px
-}
+.profile-name{font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.profile-email{font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.logout{border:0;background:transparent;color:var(--muted);padding:8px;font-size:18px}
 .main{flex:1;display:flex;flex-direction:column;min-width:0}
-.topbar{
-  height:62px;border-bottom:1px solid var(--border);
-  display:flex;align-items:center;padding:0 22px;gap:12px
-}
-.top-title{font-weight:700}
+.topbar{height:62px;min-height:62px;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 22px;gap:12px}
+.top-title{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .top-status{font-size:12px;color:var(--muted);margin-left:auto}
-#messages{
-  flex:1;overflow-y:auto;padding:25px 18px;
-  display:flex;flex-direction:column;gap:20px
-}
-.welcome{
-  margin:auto;text-align:center;max-width:500px
-}
+#messages{flex:1;overflow-y:auto;padding:25px 18px;display:flex;flex-direction:column;gap:20px}
+.welcome{margin:auto;text-align:center;max-width:500px}
 .welcome h1{font-size:32px;margin-bottom:10px}
-.welcome h1 span{color:var(--accent)}
 .welcome p{color:var(--muted);line-height:1.6}
-.message{
-  width:100%;max-width:760px;margin:0 auto;
-  display:flex;gap:13px;line-height:1.6
-}
-.message-icon{
-  flex-shrink:0;width:32px;height:32px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  background:var(--panel2);font-size:13px;font-weight:bold
-}
+.message{width:100%;max-width:760px;margin:0 auto;display:flex;gap:13px;line-height:1.6}
+.message-icon{flex-shrink:0;width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--panel2);font-size:13px;font-weight:bold}
 .message.user .message-icon{background:var(--accent)}
 .message-content{white-space:pre-wrap;overflow-wrap:anywhere;padding-top:5px}
+.message.error .message-content{color:#ff8585}
 .composer-wrap{padding:15px 18px 20px}
-.composer{
-  max-width:760px;margin:auto;display:flex;gap:10px;
-  background:var(--panel);border:1px solid var(--border);
-  padding:9px;border-radius:15px
-}
-#prompt{
-  flex:1;min-width:0;background:transparent;border:0;
-  outline:none;color:white;padding:10px;resize:none;
-  height:44px;max-height:130px
-}
-#send{
-  width:44px;height:44px;border:0;border-radius:11px;
-  background:var(--accent);color:white;font-size:20px
-}
-#send:disabled{opacity:.5;cursor:not-allowed}
-.disclaimer{
-  max-width:760px;margin:10px auto 0;text-align:center;
-  color:var(--muted);font-size:11px
-}
+.composer{max-width:760px;margin:auto;display:flex;gap:10px;background:var(--panel);border:1px solid var(--border);padding:9px;border-radius:15px}
+#prompt{flex:1;min-width:0;background:transparent;border:0;outline:none;color:white;padding:10px;resize:none;height:44px;max-height:130px}
+#send{width:44px;height:44px;border:0;border-radius:11px;background:var(--accent);color:white;font-size:20px;flex-shrink:0}
+.disclaimer{max-width:760px;margin:10px auto 0;text-align:center;color:var(--muted);font-size:11px}
 .mobile-menu{display:none;background:transparent;border:0;color:white;font-size:22px}
 @media(max-width:700px){
-  .sidebar{
-    position:fixed;z-index:5;left:-280px;top:0;bottom:0;
-    transition:left .2s
-  }
-  .sidebar.open{left:0}
-  .mobile-menu{display:block}
-  .welcome h1{font-size:25px}
+.sidebar{position:fixed;z-index:5;left:-280px;top:0;bottom:0;transition:left .2s}
+.sidebar.open{left:0}
+.mobile-menu{display:block}
+.welcome h1{font-size:25px}
+.topbar{padding:0 14px}
 }
 </style>
 </head>
 <body>
-
 <section id="loginScreen">
-  <div class="login-card">
-    <div class="logo">DAVENTRA <span>AI</span></div>
-    <div class="subtitle">Твой интеллектуальный помощник</div>
-    <button class="google-btn" id="googleLogin">
-      Продолжить с Google
-    </button>
-    <div id="loginStatus"></div>
-  </div>
+<div class="login-card">
+<div class="logo">DAVENTRA <span>AI</span></div>
+<div class="subtitle">Твой интеллектуальный помощник</div>
+<button class="google-btn" id="googleLogin">Продолжить с Google</button>
+<div id="loginStatus"></div>
+</div>
 </section>
-
 <div id="app">
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-top">
-      <div class="brand">DAVENTRA <span>AI</span></div>
-    </div>
-
-    <button class="new-chat" id="newChat">＋ Новый чат</button>
-
-    <div class="section-label">ИСТОРИЯ</div>
-    <div id="chatList"></div>
-
-    <div class="profile">
-      <div class="avatar" id="avatar">D</div>
-      <div class="profile-info">
-        <div class="profile-name" id="userName">Пользователь</div>
-        <div class="profile-email" id="userEmail"></div>
-      </div>
-      <button class="logout" id="logout" title="Выйти">↪</button>
-    </div>
-  </aside>
-
-  <main class="main">
-    <header class="topbar">
-      <button class="mobile-menu" id="mobileMenu">☰</button>
-      <div class="top-title" id="chatTitle">Новый чат</div>
-      <div class="top-status">DAVENTRA AI</div>
-    </header>
-
-    <div id="messages">
-      <div class="welcome" id="welcome">
-        <h1>Привет! Я <span>DAVENTRA AI</span></h1>
-        <p>Задавай вопросы, обсуждай идеи и начинай новую беседу.</p>
-      </div>
-    </div>
-
-    <div class="composer-wrap">
-      <div class="composer">
-        <textarea id="prompt" placeholder="Напиши сообщение..."></textarea>
-        <button id="send" title="Отправить">➤</button>
-      </div>
-      <div class="disclaimer">
-        Ответы ИИ пока демонстрационные. Настоящая модель ещё не подключена.
-      </div>
-    </div>
-  </main>
+<aside class="sidebar" id="sidebar">
+<div class="sidebar-top"><div class="brand">DAVENTRA <span>AI</span></div></div>
+<button class="new-chat" id="newChat">＋ Новый чат</button>
+<div class="section-label">ИСТОРИЯ</div>
+<div id="chatList"></div>
+<div class="profile">
+<div class="avatar" id="avatar">D</div>
+<div class="profile-info">
+<div class="profile-name" id="userName">Пользователь</div>
+<div class="profile-email" id="userEmail"></div>
+</div>
+<button class="logout" id="logout" title="Выйти">↪</button>
+</div>
+</aside>
+<main class="main">
+<header class="topbar">
+<button class="mobile-menu" id="mobileMenu">☰</button>
+<div class="top-title" id="chatTitle">Новый чат</div>
+<div class="top-status" id="topStatus">DAVENTRA AI</div>
+</header>
+<div id="messages">
+<div class="welcome">
+<h1>Привет! Я <span>DAVENTRA AI</span></h1>
+<p>Задавай вопросы, обсуждай идеи и начинай новую беседу.</p>
+</div>
+</div>
+<div class="composer-wrap">
+<div class="composer">
+<textarea id="prompt" placeholder="Напиши сообщение..."></textarea>
+<button id="send" title="Отправить">➤</button>
+</div>
+<div class="disclaimer">Ответы генерируются Gemini через Firebase AI Logic.</div>
+</div>
+</main>
 </div>
 
 <script type="module">
-import { initializeApp } from
-"https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
 
 import {
-  getAuth, GoogleAuthProvider, signInWithPopup,
-  onAuthStateChanged, signOut, setPersistence,
-  browserLocalPersistence
-} from
-"https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+getAuth,GoogleAuthProvider,signInWithPopup,
+onAuthStateChanged,signOut,setPersistence,
+browserLocalPersistence
+} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
 import {
-  getFirestore, collection, doc, addDoc, setDoc,
-  getDocs, query, orderBy, onSnapshot, serverTimestamp
-} from
-"https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+getFirestore,collection,doc,addDoc,setDoc,
+getDoc,getDocs,query,orderBy,onSnapshot,serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+import {
+initializeAppCheck,ReCaptchaEnterpriseProvider
+} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app-check.js";
+
+import {
+getAI,getGenerativeModel,GoogleAIBackend
+} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-ai.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCA8ONpSRkIsXotSYL_qJIxE-18VzqTcBQ",
-  authDomain: "daventra-ai.firebaseapp.com",
-  projectId: "daventra-ai",
-  storageBucket: "daventra-ai.firebasestorage.app",
-  messagingSenderId: "978786636501",
-  appId: "1:978786636501:web:28a6899e612c9c07ec885c"
+apiKey: "AIzaSyCA8ONpSRkIsXotSYL_qJIxE-18VzqTcBQ",
+authDomain: "daventra-ai.firebaseapp.com",
+projectId: "daventra-ai",
+storageBucket: "daventra-ai.firebasestorage.app",
+messagingSenderId: "978786636501",
+appId: "1:978786636501:web:28a6899e612c9c07ec885c"
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
-const auth = getAuth(firebaseApp);
-const db = getFirestore(firebaseApp);
+const app = initializeApp(firebaseConfig);
+
+initializeAppCheck(app,{
+provider:new ReCaptchaEnterpriseProvider(
+"6LczoBwuAAAAABbs_ATjwycpXTS_0dXg8AeIqKbJ"
+),
+isTokenAutoRefreshEnabled:true
+});
+
+const auth = getAuth(app);
+const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
+
+try {
+await setPersistence(auth,browserLocalPersistence);
+} catch(error) {
+console.error("Persistence:",error);
+}
+
+const ai = getAI(app,{
+backend:new GoogleAIBackend()
+});
+
+const model = getGenerativeModel(ai,{
+model:"gemini-3.8-flash",
+systemInstruction:
+"Ты DAVENTRA AI — интеллектуальный помощник. "+
+"Отвечай на языке пользователя, понятно, точно и дружелюбно. "+
+"Не выдумывай факты, если не знаешь ответа."
+});
 
 const $ = id => document.getElementById(id);
 
@@ -239,225 +184,337 @@ let currentUser = null;
 let currentChatId = null;
 let unsubscribeMessages = null;
 let unsubscribeChats = null;
+let chatItems = [];
 let sending = false;
 
-await setPersistence(auth, browserLocalPersistence);
+function errorText(error) {
+console.error(error);
+const code = error.code || "";
+const message = (error.message || "").toLowerCase();
 
-$("googleLogin").addEventListener("click", async () => {
-  $("loginStatus").textContent = "Выполняется вход...";
-  try {
-    await signInWithPopup(auth, provider);
-  } catch (error) {
-    $("loginStatus").textContent =
-      "Ошибка входа: " + error.message;
-  }
-});
+if(code.includes("permission-denied"))
+return "Firestore запретил доступ. Проверь Rules.";
 
-onAuthStateChanged(auth, async user => {
-  currentUser = user;
+if(code.includes("app-check") || message.includes("app check") || message.includes("appcheck"))
+return "Ошибка App Check. Проверь reCAPTCHA Enterprise.";
 
-  if (user) {
-    $("loginScreen").style.display = "none";
-    $("app").style.display = "flex";
+if(code.includes("quota") || code.includes("resource-exhausted"))
+return "Превышен доступный лимит запросов.";
 
-    $("userName").textContent = user.displayName || "Пользователь";
-    $("userEmail").textContent = user.email || "";
-    $("avatar").textContent =
-      (user.displayName || user.email || "D")[0].toUpperCase();
+if(code.includes("unauthorized-domain"))
+return "Домен не добавлен в Firebase Authentication.";
 
-    listenChats();
-  } else {
-    if (unsubscribeChats) unsubscribeChats();
-    if (unsubscribeMessages) unsubscribeMessages();
+if(code.includes("network"))
+return "Ошибка сети. Проверь интернет.";
 
-    $("app").style.display = "none";
-    $("loginScreen").style.display = "flex";
-    currentChatId = null;
-  }
-});
-
-$("logout").addEventListener("click", async () => {
-  await signOut(auth);
-});
+return error.message || "Неизвестная ошибка.";
+}
 
 function chatsRef() {
-  return collection(db, "users", currentUser.uid, "chats");
+return collection(db,"users",currentUser.uid,"chats");
+}
+
+function chatRef(chatId) {
+return doc(db,"users",currentUser.uid,"chats",chatId);
 }
 
 function messagesRef(chatId) {
-  return collection(
-    db, "users", currentUser.uid, "chats", chatId, "messages"
-  );
+return collection(db,"users",currentUser.uid,"chats",chatId,"messages");
+}
+
+$("googleLogin").addEventListener("click",async()=>{
+$("loginStatus").textContent="Выполняется вход...";
+$("googleLogin").disabled=true;
+try {
+await signInWithPopup(auth,provider);
+} catch(error) {
+$("loginStatus").textContent="Ошибка: "+errorText(error);
+} finally {
+$("googleLogin").disabled=false;
+}
+});
+
+$("logout").addEventListener("click",async()=>{
+try {
+await signOut(auth);
+} catch(error) {
+alert(errorText(error));
+}
+});
+
+onAuthStateChanged(auth,user=>{
+currentUser=user;
+
+if(user) {
+$("loginScreen").style.display="none";
+$("app").style.display="flex";
+$("userName").textContent=user.displayName||"Пользователь";
+$("userEmail").textContent=user.email||"";
+$("avatar").textContent=(user.displayName||user.email||"D").charAt(0).toUpperCase();
+$("loginStatus").textContent="";
+listenChats();
+} else {
+if(unsubscribeChats) unsubscribeChats();
+if(unsubscribeMessages) unsubscribeMessages();
+unsubscribeChats=null;
+unsubscribeMessages=null;
+currentChatId=null;
+chatItems=[];
+renderChatList();
+$("app").style.display="none";
+$("loginScreen").style.display="flex";
+}
+});
+
+function renderChatList() {
+const list=$("chatList");
+list.innerHTML="";
+chatItems.forEach(item=>{
+const button=document.createElement("div");
+button.className="chat-item"+(item.id===currentChatId?" active":"");
+button.textContent=item.data().title||"Новый чат";
+button.addEventListener("click",()=>openChat(item.id));
+list.appendChild(button);
+});
 }
 
 function listenChats() {
-  if (unsubscribeChats) unsubscribeChats();
+if(unsubscribeChats) unsubscribeChats();
+unsubscribeChats=onSnapshot(
+query(chatsRef(),orderBy("updatedAt","desc")),
+snapshot=>{
+chatItems=snapshot.docs;
+renderChatList();
+},
+error=>{
+console.error("Chat list:",error);
+$("topStatus").textContent="Ошибка истории";
+}
+);
+}
 
-  const q = query(chatsRef(), orderBy("updatedAt", "desc"));
+function addMessage(text,role,scroll=true,extraClass="") {
+const row=document.createElement("div");
+row.className="message "+role+(extraClass?" "+extraClass:"");
 
-  unsubscribeChats = onSnapshot(q, snapshot => {
-    const list = $("chatList");
-    list.innerHTML = "";
+const icon=document.createElement("div");
+icon.className="message-icon";
+icon.textContent=role==="user"?"Я":"D";
 
-    snapshot.forEach(item => {
-      const data = item.data();
-      const button = document.createElement("div");
+const content=document.createElement("div");
+content.className="message-content";
+content.textContent=text;
 
-      button.className =
-        "chat-item" + (item.id === currentChatId ? " active" : "");
-      button.textContent = data.title || "Новый чат";
+row.append(icon,content);
+$("messages").appendChild(row);
 
-      button.addEventListener("click", () => openChat(item.id));
-      list.appendChild(button);
-    });
-  }, error => {
-    console.error("Chat list error:", error);
-  });
+if(scroll) $("messages").scrollTop=$("messages").scrollHeight;
+return row;
+}
+
+function showWelcome() {
+$("messages").innerHTML=`
+<div class="welcome">
+<h1>Начни беседу</h1>
+<p>Напиши своё первое сообщение.</p>
+</div>`;
 }
 
 async function createChat() {
-  const chat = await addDoc(chatsRef(), {
-    title: "Новый чат",
-    createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp()
-  });
-
-  await openChat(chat.id);
+if(!currentUser||sending) return;
+try {
+const chat=await addDoc(chatsRef(),{
+title:"Новый чат",
+createdAt:serverTimestamp(),
+updatedAt:serverTimestamp()
+});
+await openChat(chat.id);
+} catch(error) {
+alert("Ошибка создания чата: "+errorText(error));
+}
 }
 
 async function openChat(chatId) {
-  currentChatId = chatId;
+if(!currentUser) return;
 
-  if (unsubscribeMessages) unsubscribeMessages();
+currentChatId=chatId;
+if(unsubscribeMessages) unsubscribeMessages();
+unsubscribeMessages=null;
 
-  $("sidebar").classList.remove("open");
+renderChatList();
+$("sidebar").classList.remove("open");
+$("chatTitle").textContent="Загрузка...";
+$("messages").innerHTML="";
 
-  const chatDoc = await getDocs(
-    query(chatsRef(), orderBy("updatedAt", "desc"))
-  );
+try {
+const selected=await getDoc(chatRef(chatId));
+if(currentChatId!==chatId) return;
+if(!selected.exists()) throw new Error("Чат не найден.");
 
-  const selected = chatDoc.docs.find(item => item.id === chatId);
-  $("chatTitle").textContent =
-    selected?.data()?.title || "Новый чат";
+$("chatTitle").textContent=selected.data().title||"Новый чат";
 
-  $("welcome").style.display = "none";
-  $("messages").innerHTML = "";
+unsubscribeMessages=onSnapshot(
+query(messagesRef(chatId),orderBy("createdAt","asc")),
+snapshot=>{
+if(currentChatId!==chatId) return;
+$("messages").innerHTML="";
 
-  unsubscribeMessages = onSnapshot(
-    query(messagesRef(chatId), orderBy("createdAt", "asc")),
-    snapshot => {
-      const area = $("messages");
-      area.innerHTML = "";
-
-      if (snapshot.empty) {
-        area.innerHTML =
-          '<div class="welcome"><h1>Начни беседу</h1><p>Напиши своё первое сообщение.</p></div>';
-        return;
-      }
-
-      snapshot.forEach(item => {
-        const data = item.data();
-        addMessage(data.text, data.role, false);
-      });
-
-      area.scrollTop = area.scrollHeight;
-    },
-    error => console.error("Messages error:", error)
-  );
+if(snapshot.empty) {
+showWelcome();
+return;
 }
 
-function addMessage(text, role, scroll = true) {
-  const area = $("messages");
+snapshot.forEach(item=>{
+const data=item.data();
+addMessage(data.text||"",data.role==="user"?"user":"assistant",false);
+});
 
-  const row = document.createElement("div");
-  row.className = "message " + role;
-
-  const icon = document.createElement("div");
-  icon.className = "message-icon";
-  icon.textContent = role === "user" ? "Я" : "D";
-
-  const content = document.createElement("div");
-  content.className = "message-content";
-  content.textContent = text;
-
-  row.append(icon, content);
-  area.appendChild(row);
-
-  if (scroll) area.scrollTop = area.scrollHeight;
+$("messages").scrollTop=$("messages").scrollHeight;
+},
+error=>{
+addMessage("Ошибка загрузки: "+errorText(error),"assistant",true,"error");
+}
+);
+} catch(error) {
+addMessage(errorText(error),"assistant",true,"error");
+}
 }
 
 async function sendMessage() {
-  const text = $("prompt").value.trim();
+const userText=$("prompt").value.trim();
+if(!userText||sending||!currentUser) return;
 
-  if (!text || sending || !currentUser) return;
+const userId=currentUser.uid;
+let chatId=currentChatId;
+let typingRow=null;
 
-  sending = true;
-  $("send").disabled = true;
-  $("prompt").value = "";
+$("prompt").value="";
+sending=true;
+$("send").disabled=true;
+$("newChat").disabled=true;
+$("topStatus").textContent="Gemini думает...";
 
-  try {
-    if (!currentChatId) {
-      const chat = await addDoc(chatsRef(), {
-        title: text.slice(0, 35),
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
-      });
-      currentChatId = chat.id;
-      await openChat(chat.id);
-    }
-
-    const chatRef = doc(
-      db, "users", currentUser.uid, "chats", currentChatId
-    );
-
-    await addDoc(messagesRef(currentChatId), {
-      text,
-      role: "user",
-      createdAt: serverTimestamp()
-    });
-
-    await setDoc(chatRef, {
-      title: text.slice(0, 35),
-      updatedAt: serverTimestamp()
-    }, { merge: true });
-
-    // ВРЕМЕННЫЙ ОТВЕТ.
-    // Здесь позже будет запрос к настоящей ИИ-модели.
-    await addDoc(messagesRef(currentChatId), {
-      text: "Я получил твоё сообщение! Но настоящая ИИ-модель DAVENTRA AI ещё не подключена. Сейчас это демонстрационный ответ.",
-      role: "assistant",
-      createdAt: serverTimestamp()
-    });
-
-    await setDoc(chatRef, {
-      updatedAt: serverTimestamp()
-    }, { merge: true });
-
-  } catch (error) {
-    console.error(error);
-    alert("Не удалось отправить сообщение: " + error.message);
-    $("prompt").value = text;
-  } finally {
-    sending = false;
-    $("send").disabled = false;
-    $("prompt").focus();
-  }
+try {
+if(!chatId) {
+const newChat=await addDoc(
+collection(db,"users",userId,"chats"),
+{
+title:userText.slice(0,45),
+createdAt:serverTimestamp(),
+updatedAt:serverTimestamp()
+}
+);
+chatId=newChat.id;
+currentChatId=chatId;
+await openChat(chatId);
 }
 
-$("send").addEventListener("click", sendMessage);
+const messages=collection(db,"users",userId,"chats",chatId,"messages");
+const selectedChat=doc(db,"users",userId,"chats",chatId);
 
-$("prompt").addEventListener("keydown", event => {
-  if (event.key === "Enter" && !event.shiftKey) {
-    event.preventDefault();
-    sendMessage();
-  }
+const previous=await getDocs(
+query(messages,orderBy("createdAt","asc"))
+);
+
+const oldMessages=previous.docs.map(d=>d.data());
+
+let lastAssistant=-1;
+oldMessages.forEach((message,index)=>{
+if(message.role==="assistant") lastAssistant=index;
 });
 
-$("newChat").addEventListener("click", createChat);
+const history=oldMessages
+.slice(0,lastAssistant+1)
+.filter(message=>
+(message.role==="user"||message.role==="assistant")&&
+typeof message.text==="string"
+)
+.map(message=>({
+role:message.role==="user"?"user":"model",
+parts:[{text:message.text}]
+}));
 
-$("mobileMenu").addEventListener("click", () => {
-  $("sidebar").classList.toggle("open");
+await addDoc(messages,{
+text:userText,
+role:"user",
+createdAt:serverTimestamp()
 });
+
+await setDoc(selectedChat,{
+updatedAt:serverTimestamp()
+},{merge:true});
+
+typingRow=addMessage("DAVENTRA AI думает...","assistant",true,"typing");
+
+const chatSession=model.startChat({
+history:history
+});
+
+const result=await chatSession.sendMessage(userText);
+const answer=result.response.text();
+
+if(!answer||!answer.trim()) {
+throw new Error("Gemini вернул пустой ответ.");
+}
+
+typingRow.remove();
+typingRow=null;
+
+await addDoc(messages,{
+text:answer,
+role:"assistant",
+createdAt:serverTimestamp()
+});
+
+await setDoc(selectedChat,{
+updatedAt:serverTimestamp()
+},{merge:true});
+
+$("topStatus").textContent="Gemini AI";
+
+} catch(error) {
+if(typingRow) typingRow.remove();
+
+console.error("Gemini error:",error);
+
+addMessage(
+"Не удалось получить ответ: "+errorText(error),
+"assistant",
+true,
+"error"
+);
+
+$("prompt").value=userText;
+$("topStatus").textContent="Ошибка";
+
+} finally {
+sending=false;
+$("send").disabled=false;
+$("newChat").disabled=false;
+
+if($("topStatus").textContent!=="Ошибка") {
+$("topStatus").textContent="Gemini AI";
+}
+
+$("prompt").focus();
+}
+}
+
+$("send").addEventListener("click",sendMessage);
+
+$("prompt").addEventListener("keydown",event=>{
+if(event.key==="Enter"&&!event.shiftKey) {
+event.preventDefault();
+sendMessage();
+}
+});
+
+$("newChat").addEventListener("click",createChat);
+
+$("mobileMenu").addEventListener("click",()=>{
+$("sidebar").classList.toggle("open");
+});
+
 </script>
 </body>
 </html>
