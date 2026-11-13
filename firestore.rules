@@ -1,0 +1,54 @@
+rules_version = '2';
+
+// DAVENTRA AI — правила Cloud Firestore.
+// Каждый пользователь видит и меняет только данные внутри users/{его uid}/...
+// Всё остальное закрыто.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    match /users/{uid}/chats/{chatId} {
+      allow read: if isOwner(uid);
+
+      allow create: if isOwner(uid)
+        && request.resource.data.keys().hasOnly(['title', 'createdAt', 'updatedAt'])
+        && request.resource.data.title is string
+        && request.resource.data.title.size() > 0
+        && request.resource.data.title.size() <= 120
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+
+      // Разрешено менять только время обновления.
+      allow update: if isOwner(uid)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['updatedAt'])
+        && request.resource.data.updatedAt == request.time;
+
+      allow delete: if isOwner(uid);
+
+      match /messages/{messageId} {
+        allow read: if isOwner(uid);
+
+        allow create: if isOwner(uid)
+          && request.resource.data.keys().hasOnly(['role', 'text', 'idx', 'createdAt'])
+          && request.resource.data.role in ['user', 'model']
+          && request.resource.data.text is string
+          && request.resource.data.text.size() > 0
+          && request.resource.data.text.size() <= 200000
+          && request.resource.data.idx is int
+          && request.resource.data.idx >= 0
+          && request.resource.data.createdAt == request.time;
+
+        allow update: if false;
+        allow delete: if isOwner(uid);
+      }
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
