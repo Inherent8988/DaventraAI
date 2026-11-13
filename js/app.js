@@ -555,6 +555,14 @@ el.messages.addEventListener("click", async (e) => {
 
 // ---------- Gemini ----------
 
+// Временные сбои на стороне сервера: повторяем запрос к ТОЙ ЖЕ модели.
+function isTransientError(err) {
+  const s = `${err?.code || ""} ${err?.message || err || ""}`;
+  return /\[(500|502|503|504)\b|\b(500|502|503|504)\s*\]|high demand|overloaded|currently unavailable|try again later/i.test(s);
+}
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
 function explainAiError(err) {
   const raw = `${err?.code || ""} ${err?.message || err || ""}`;
   const low = raw.toLowerCase();
@@ -565,8 +573,11 @@ function explainAiError(err) {
   if (/api[\s-]?not[\s-]?enabled|has not been used|service_disabled|api key not valid|api_key_invalid/.test(low)) {
     return "Firebase AI Logic / Gemini Developer API не включены для проекта или ключ недействителен. Проверьте консоль Firebase → AI Logic.";
   }
-  if (/\b429\b|quota|resource[\s_]exhausted|rate/.test(low)) {
+  if (/\b429\b|quota|resource[\s_]exhausted|rate[\s_-]?limit|too many requests/.test(low)) {
     return "Достигнут лимит запросов бесплатного тарифа Gemini. Подождите немного и повторите.";
+  }
+  if (isTransientError(err)) {
+    return "Модель Gemini временно перегружена (ошибка на стороне Google). Это обычно проходит само — нажмите «Повторить» через несколько секунд.";
   }
   if (/\b403\b|permission[\s_]denied|forbidden/.test(low)) {
     return "Доступ к Gemini запрещён (403). Проверьте настройки Firebase AI Logic, ограничения API-ключа и App Check.";
@@ -714,21 +725,30 @@ async function generate(uid, chatId) {
     if (follow) scrollToBottom();
   };
 
-  try {
-    // Многоходовой диалог: история передаётся в startChat, новое сообщение — в sendMessageStream.
-    const chat = model.startChat({ history });
-    const result = await chat.sendMessageStream(text);
-    for await (const chunk of result.stream) {
-      if (state.stopRequested) break;
-      const part = chunk.text();
-      if (part) {
-        full += part;
-        if (!raf) raf = requestAnimationFrame(paint);
+  const MAX_ATTEMPTS = 3;
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    failure = null;
+    try {
+      // Многоходовой диалог: история передаётся в startChat, новое сообщение — в sendMessageStream.
+      const chat = model.startChat({ history });
+      const result = await chat.sendMessageStream(text);
+      for await (const chunk of result.stream) {
+        if (state.stopRequested) break;
+        const part = chunk.text();
+        if (part) {
+          full += part;
+          if (!raf) raf = requestAnimationFrame(paint);
+        }
       }
+      break;
+    } catch (err) {
+      failure = err;
+      console.error(`[DAVENTRA] Ошибка Gemini (попытка ${attempt}/${MAX_ATTEMPTS}):`, err);
+      // Повторяем только временные сбои сервера и только пока не пришёл ни один фрагмент ответа.
+      if (full || state.stopRequested || !isTransientError(err) || attempt === MAX_ATTEMPTS) break;
+      await sleep(1500 * attempt);
+      if (state.stopRequested) break;
     }
-  } catch (err) {
-    failure = err;
-    console.error("[DAVENTRA] Ошибка Gemini:", err);
   }
 
   if (raf) cancelAnimationFrame(raf);
