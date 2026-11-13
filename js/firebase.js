@@ -69,10 +69,15 @@ export const db = getFirestore(app);
 
 // Firebase AI Logic + Gemini Developer API
 const ai = getAI(app, { backend: new GoogleAIBackend() });
-export const model = getGenerativeModel(ai, {
-  model: MODEL_ID,
-  systemInstruction: SYSTEM_PROMPT,
-});
+export const model = getGenerativeModel(
+  ai,
+  {
+    model: MODEL_ID,
+    systemInstruction: SYSTEM_PROMPT,
+  },
+  // Максимальное ожидание ответа сервера: при перегрузке запрос не должен висеть минутами.
+  { timeout: 45000 },
+);
 
 // ---------- Авторизация ----------
 

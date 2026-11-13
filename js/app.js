@@ -558,7 +558,7 @@ el.messages.addEventListener("click", async (e) => {
 // Временные сбои на стороне сервера: повторяем запрос к ТОЙ ЖЕ модели.
 function isTransientError(err) {
   const s = `${err?.code || ""} ${err?.message || err || ""}`;
-  return /\[(500|502|503|504)\b|\b(500|502|503|504)\s*\]|high demand|overloaded|currently unavailable|try again later/i.test(s);
+  return /\[(500|502|503|504)\b|\b(500|502|503|504)\s*\]|high demand|overloaded|currently unavailable|try again later|abort|timed? ?out/i.test(s);
 }
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
