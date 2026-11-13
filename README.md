@@ -39,7 +39,7 @@ firebase.json, .firebaserc   деплой правил через Firebase CLI
 1. **Google Cloud Console → reCAPTCHA Enterprise → ваш ключ → Domains**: должен быть `inherent8988.github.io`
    (только домен, без `https://` и пути). Тип ключа — «Website» (а не Android/iOS).
 2. **Firebase Console → App Check → Apps**: веб-приложение `daventra-ai` зарегистрировано с провайдером
-   **reCAPTCHA Enterprise** и site key `6LczoBwuAAAAABbs_ATjwycpXTS_0dXg8AeIqKbJ`.
+   **reCAPTCHA Enterprise** и site key `6LdBFx0uAAAAAJvCRFXwd8Nk_1YRde-dIy-hMWjq`.
 3. В Google Cloud проекта `daventra-ai` включён **reCAPTCHA Enterprise API**.
 4. Старые «Invalid» могли появиться от запросов, сделанных без токена (например, с `localhost` без debug-токена).
    Для локальной разработки откройте сайт на `localhost` — в консоли браузера появится debug-токен; добавьте его в
