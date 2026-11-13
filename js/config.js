@@ -12,7 +12,7 @@ export const firebaseConfig = {
 };
 
 // Site key reCAPTCHA Enterprise для Firebase App Check.
-export const APP_CHECK_SITE_KEY = "6LczoBwuAAAAABbs_ATjwycpXTS_0dXg8AeIqKbJ";
+export const APP_CHECK_SITE_KEY = "6LdBFx0uAAAAAJvCRFXwd8Nk_1YRde-dIy-hMWjq";
 
 // Единственная модель приложения. Автоматического переключения на другие модели нет.
 export const MODEL_ID = "gemini-3.8-flash";
